@@ -1,0 +1,102 @@
+<div class="login-wrapper">
+
+  <!-- LADO IZQUIERDO: imagen -->
+  <div class="login-left">
+    <img src="./img2.jpg" alt="Hospital San José" class="login-img">
+    <div class="login-overlay">
+      <div class="login-overlay-text">
+        <p class="text-white fs-4">Tu salud,</p>
+        <h2 class="text-white fw-bold display-5">nuestra<br>prioridad</h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- LADO DERECHO: formulario -->
+  <div class="login-right">
+
+    <!-- Logo -->
+    <div class="mb-4">
+      <img src="./logo_hospital.png" alt="Hospital San José" height="60"
+           onerror="this.style.display='none'">
+    </div>
+
+    <h3 class="fw-bold mb-1">Crear una cuenta</h3>
+    <p class="text-muted small mb-4">Completa tus datos para registrarte en el portal</p>
+
+    <!-- Tipo de documento -->
+    <div class="mb-3">
+      <label class="form-label small fw-semibold">Tipo de documento <span class="text-danger">*</span></label>
+      <select class="form-select">
+        <option value="">Selecciona un tipo</option>
+        <option>DNI</option>
+        <option>Carnet de Extranjería</option>
+        <option>Pasaporte</option>
+      </select>
+    </div>
+
+    <!-- Número de documento -->
+    <div class="mb-3">
+      <label class="form-label small fw-semibold">Número de documento <span class="text-danger">*</span></label>
+      <input type="text" class="form-control" placeholder="Ingresa tu número de documento" maxlength="12">
+    </div>
+
+    <!-- Fecha de emisión -->
+    <div class="mb-3">
+      <label class="form-label small fw-semibold">Fecha de emisión del documento <span class="text-danger">*</span></label>
+      <input type="date" class="form-control">
+    </div>
+
+    <!-- Correo -->
+    <div class="mb-3">
+      <label class="form-label small fw-semibold">Correo electrónico <span class="text-danger">*</span></label>
+      <input type="email" class="form-control" placeholder="ejemplo@correo.com">
+    </div>
+
+    <!-- Celular -->
+    <div class="mb-3">
+      <label class="form-label small fw-semibold">Número de celular <span class="text-danger">*</span></label>
+      <div class="input-group">
+        <span class="input-group-text">+51</span>
+        <input type="tel" class="form-control" placeholder="999 999 999" maxlength="9">
+      </div>
+    </div>
+
+    <!-- Contraseña -->
+    <div class="mb-3">
+      <label class="form-label small fw-semibold">Contraseña <span class="text-danger">*</span></label>
+      <div class="input-group">
+        <input type="password" class="form-control" placeholder="Mínimo 8 caracteres" id="inputPassword">
+        <button class="btn btn-outline-secondary" type="button"
+          onclick="
+            const i = document.getElementById('inputPassword');
+            const icon = this.querySelector('i');
+            if(i.type === 'password') {
+              i.type = 'text';
+              icon.className = 'fa-regular fa-eye-slash';
+            } else {
+              i.type = 'password';
+              icon.className = 'fa-regular fa-eye';
+            }
+          ">
+          <i class="fa-regular fa-eye"></i>
+        </button>
+      </div>
+    </div>
+
+    <button class="btn btn-primary w-100 py-2 fw-semibold mb-3">
+      Continuar
+    </button>
+
+    <p class="text-center small text-muted">
+      ¿Ya tienes cuenta?
+      <a routerLink="/usuario/iniciar-sesion" class="text-primary fw-semibold">Iniciar sesión</a>
+    </p>
+
+    <p class="text-center mt-3">
+      <a routerLink="/" class="small text-muted">
+        <i class="fa-solid fa-arrow-left me-1"></i>Volver al inicio
+      </a>
+    </p>
+
+  </div>
+</div>
