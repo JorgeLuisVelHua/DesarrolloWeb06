@@ -1,10 +1,14 @@
 import { Routes } from '@angular/router';
-import { Layout } from './layout/layout';
-import { pattern } from '@angular/forms/signals';
+import { Public } from './layout/public/public';
+import { Index } from './pages/public/index';
 
 export const routes: Routes = [
     {
         path:'',
-        component:Layout
+        component:Public,
+        children: [
+            {path: 'index',component:Index},
+            {path:'',redirectTo:'index',pathMatch:'full'}
+        ]
     }
 ];
