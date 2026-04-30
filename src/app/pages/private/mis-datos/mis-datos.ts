@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-index',
+  selector: 'app-mis-datos',
   imports: [RouterLink],
-  templateUrl: './index.html',
-  styleUrl: './index.css',
+  templateUrl: './mis-datos.html',
+  styleUrl: './mis-datos.css',
 })
-export class Index {}
+export class MisDatos {}

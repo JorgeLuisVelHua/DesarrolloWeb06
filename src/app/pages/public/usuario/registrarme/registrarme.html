@@ -23,69 +23,124 @@
     <h3 class="fw-bold mb-1">Crear una cuenta</h3>
     <p class="text-muted small mb-4">Completa tus datos para registrarte en el portal</p>
 
+    <!-- FORMULARIO -->
+    <form [formGroup]="registroForm" (ngSubmit)="registrar()">
+
     <!-- Tipo de documento -->
     <div class="mb-3">
-      <label class="form-label small fw-semibold">Tipo de documento <span class="text-danger">*</span></label>
-      <select class="form-select">
-        <option value="">Selecciona un tipo</option>
-        <option>DNI</option>
-        <option>Carnet de Extranjería</option>
-        <option>Pasaporte</option>
-      </select>
-    </div>
-
-    <!-- Número de documento -->
-    <div class="mb-3">
-      <label class="form-label small fw-semibold">Número de documento <span class="text-danger">*</span></label>
-      <input type="text" class="form-control" placeholder="Ingresa tu número de documento" maxlength="12">
-    </div>
-
-    <!-- Fecha de emisión -->
-    <div class="mb-3">
-      <label class="form-label small fw-semibold">Fecha de emisión del documento <span class="text-danger">*</span></label>
-      <input type="date" class="form-control">
-    </div>
-
-    <!-- Correo -->
-    <div class="mb-3">
-      <label class="form-label small fw-semibold">Correo electrónico <span class="text-danger">*</span></label>
-      <input type="email" class="form-control" placeholder="ejemplo@correo.com">
-    </div>
-
-    <!-- Celular -->
-    <div class="mb-3">
-      <label class="form-label small fw-semibold">Número de celular <span class="text-danger">*</span></label>
-      <div class="input-group">
-        <span class="input-group-text">+51</span>
-        <input type="tel" class="form-control" placeholder="999 999 999" maxlength="9">
+        <label class="form-label small fw-semibold">Tipo de documento <span class="text-danger">*</span></label>
+        <select class="form-select" formControlName="tipoDocumento"
+          [class.is-invalid]="tipoDocumento?.invalid && tipoDocumento?.touched">
+          <option value="">Selecciona un tipo</option>
+          <option>DNI</option>
+          <option>Carnet de Extranjería</option>
+          <option>Pasaporte</option>
+        </select>
+        @if (tipoDocumento?.invalid && tipoDocumento?.touched) {
+          <div class="text-danger small mt-1">Selecciona un tipo de documento</div>
+        }
       </div>
-    </div>
 
-    <!-- Contraseña -->
-    <div class="mb-3">
-      <label class="form-label small fw-semibold">Contraseña <span class="text-danger">*</span></label>
-      <div class="input-group">
-        <input type="password" class="form-control" placeholder="Mínimo 8 caracteres" id="inputPassword">
-        <button class="btn btn-outline-secondary" type="button"
-          onclick="
-            const i = document.getElementById('inputPassword');
-            const icon = this.querySelector('i');
-            if(i.type === 'password') {
-              i.type = 'text';
-              icon.className = 'fa-regular fa-eye-slash';
-            } else {
-              i.type = 'password';
-              icon.className = 'fa-regular fa-eye';
+      <!-- Número de documento -->
+      <div class="mb-3">
+        <label class="form-label small fw-semibold">Número de documento <span class="text-danger">*</span></label>
+        <input type="text" class="form-control"
+          placeholder="Ingresa tu número de documento"
+          formControlName="nroDocumento"
+          maxlength="8"
+          (keydown)="$event.key >= '0' && $event.key <= '9' || $event.key === 'Backspace' || $event.key === 'Tab' ? true : $event.preventDefault()"
+          [class.is-invalid]="nroDocumento?.invalid && nroDocumento?.touched">
+        @if (nroDocumento?.invalid && nroDocumento?.touched) {
+          <div class="text-danger small mt-1">
+            @if (nroDocumento?.errors?.['required']) {
+              <span>El número de documento es requerido</span>
+            } @else if (nroDocumento?.errors?.['minlength']) {
+              <span>Mínimo 8 caracteres</span>
             }
-          ">
-          <i class="fa-regular fa-eye"></i>
-        </button>
+          </div>
+        }
       </div>
-    </div>
 
-    <button class="btn btn-primary w-100 py-2 fw-semibold mb-3">
-      Continuar
-    </button>
+      <!-- Fecha de emisión -->
+      <div class="mb-3">
+        <label class="form-label small fw-semibold">Fecha de emisión del documento <span class="text-danger">*</span></label>
+        <input type="date" class="form-control"
+          formControlName="fechaEmision"
+          [class.is-invalid]="fechaEmision?.invalid && fechaEmision?.touched">
+        @if (fechaEmision?.invalid && fechaEmision?.touched) {
+          <div class="text-danger small mt-1">La fecha de emisión es requerida</div>
+        }
+      </div>
+
+      <!-- Correo -->
+      <div class="mb-3">
+        <label class="form-label small fw-semibold">Correo electrónico <span class="text-danger">*</span></label>
+        <input type="email" class="form-control"
+          placeholder="ejemplo@correo.com"
+          formControlName="correo"
+          [class.is-invalid]="correo?.invalid && correo?.touched">
+        @if (correo?.invalid && correo?.touched) {
+          <div class="text-danger small mt-1">
+            @if (correo?.errors?.['required']) {
+              <span>El correo es requerido</span>
+            } @else if (correo?.errors?.['email']) {
+              <span>Ingresa un correo válido</span>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Celular -->
+      <div class="mb-3">
+        <label class="form-label small fw-semibold">Número de celular <span class="text-danger">*</span></label>
+        <div class="input-group">
+          <span class="input-group-text">+51</span>
+          <input type="tel" class="form-control"
+            placeholder="999 999 999"
+            formControlName="celular"
+            maxlength="9"
+            [class.is-invalid]="celular?.invalid && celular?.touched">
+        </div>
+        @if (celular?.invalid && celular?.touched) {
+          <div class="text-danger small mt-1">
+            @if (celular?.errors?.['required']) {
+              <span>El celular es requerido</span>
+            } @else if (celular?.errors?.['minlength']) {
+              <span>Debe tener 9 dígitos</span>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Contraseña -->
+      <div class="mb-4">
+        <label class="form-label small fw-semibold">Contraseña <span class="text-danger">*</span></label>
+        <div class="input-group">
+          <input [type]="mostrarPassword ? 'text' : 'password'"
+            class="form-control"
+            placeholder="Mínimo 8 caracteres"
+            formControlName="contrasena"
+            [class.is-invalid]="contrasena?.invalid && contrasena?.touched">
+          <button class="btn btn-outline-secondary" type="button" (click)="mostrarPassword = !mostrarPassword">
+            <i [class]="mostrarPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'"></i>
+          </button>
+        </div>
+        @if (contrasena?.invalid && contrasena?.touched) {
+          <div class="text-danger small mt-1">
+            @if (contrasena?.errors?.['required']) {
+              <span>La contraseña es requerida</span>
+            } @else if (contrasena?.errors?.['minlength']) {
+              <span>Mínimo 8 caracteres</span>
+            }
+          </div>
+        }
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold mb-3">
+        Continuar
+      </button>
+
+    </form>
 
     <p class="text-center small text-muted">
       ¿Ya tienes cuenta?

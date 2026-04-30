@@ -4,9 +4,10 @@
 }
 
 .login-left {
-  flex: 1;
-  position: relative;
-  display: none;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .login-img {
